@@ -1,13 +1,12 @@
 //
-//  WelcomViewController.swift
+//  WelcomeViewController_OptionalBinding.swift
 //  Sopt38-Seminar
 //
-//  Created by h2e on 4/10/26.
+//  Created by h2e on 4/11/26.
 //
 
 import UIKit
-
-class WelcomeViewController: UIViewController {
+class WelcomeViewController_OptionalBinding: UIViewController {
     
     var id: String? = nil
     
@@ -49,22 +48,25 @@ class WelcomeViewController: UIViewController {
     }()
     
     
-    private func bindID() {
-            if let id = id {
-                welcomeLabel.text = "\(id)님\n반가워요!"
-            } else {
-                welcomeLabel.text = "??님\n반가워요!"
-            }
+    func configure(id: String?){
+//        welcomeLabel.text = "\(id ?? "")님 \n반가워요!"
+        if let id = id {
+            welcomeLabel.text = "\(id)님 \n반가워요!"
+        } else {
+            welcomeLabel.text = "알수없음님 반가워요!"
         }
+//        guard let realid = id else {
+//            welcomelabel.text = "알수없음님 반가워요!"
+//            return
+//        }
+//        welcomelabel.text = "\(realid)님 \n반가워요!"
+    }
     
     override func viewDidLoad() {
-            super.viewDidLoad()
-            self.view.backgroundColor = .white
-            self.navigationItem.hidesBackButton = true
-            setLayout()
-            bindID()
-        }
-    
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setLayout()
+    }
     
     private func setLayout(){
         [welcomeImageView, welcomeLabel, mainButton, backToLoginButton].forEach{self.view.addSubview($0)}

@@ -17,8 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // scene이 UIWindowScene이 아니라면 실행을 중단
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let loginViewController = LoginViewController()
-        let navigationController = UINavigationController(rootViewController: loginViewController)
+//        let loginViewController = LoginViewController_SnapKit()
+//        let AutoLayoutViewController = Autolayout_Practice()
+        let ScrollViewController = ScrollViewPractice2()
+        let navigationController = UINavigationController(rootViewController: ScrollViewController)
         
         // window의 루트를 설정.
         let window = UIWindow(windowScene: windowScene)

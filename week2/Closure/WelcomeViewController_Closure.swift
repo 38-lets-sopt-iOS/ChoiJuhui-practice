@@ -1,15 +1,16 @@
 //
-//  WelcomViewController.swift
+//  WelcomeViewController_Closure.swift
 //  Sopt38-Seminar
 //
-//  Created by h2e on 4/10/26.
+//  Created by h2e on 4/11/26.
 //
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+class WelcomeViewController_Closure: UIViewController {
     
     var id: String? = nil
+    var backToLoginCompletion: ((String) -> Void)?
     
     private let welcomeImageView: UIImageView = {
         let iv = UIImageView(frame: CGRect(x: 120, y: 120, width: 150, height: 150))
@@ -65,13 +66,18 @@ class WelcomeViewController: UIViewController {
             bindID()
         }
     
-    
     private func setLayout(){
         [welcomeImageView, welcomeLabel, mainButton, backToLoginButton].forEach{self.view.addSubview($0)}
     }
     
     @objc
     private func backToLoginTapped(){
+        guard let backToLoginCompletion = backToLoginCompletion else { return }
+        
+        if let id = id {
+            backToLoginCompletion(id)
+        }
+        
         if self.navigationController == nil {
             self.dismiss(animated: true)
         } else {

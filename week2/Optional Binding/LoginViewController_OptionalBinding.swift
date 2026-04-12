@@ -1,15 +1,13 @@
 //
-//  LoginViewController.swift
+//  LoginViewController_OptionalBinding.swift
 //  Sopt38-Seminar
 //
-//  Created by h2e on 4/10/26.
+//  Created by h2e on 4/11/26.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
-    
-    var id: String? = nil
+class LoginViewController_OptionalBinding: UIViewController {
     
     private let titleLabel : UILabel = {
         let label = UILabel(frame: CGRect(x : 73, y : 163, width: 236, height: 44))
@@ -70,11 +68,17 @@ class LoginViewController: UIViewController {
     }
 
     private func pushToWelcomeVC() {
-        let welcomeViewController = WelcomeViewController()
-        welcomeViewController.id = idTextField.text
+        let welcomeViewController = WelcomeViewController_OptionalBinding()
+        welcomeViewController.configure(id: idTextField.text)
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
     
+    private func presentToWelcomeVC() {
+        let welcomeViewController = WelcomeViewController_OptionalBinding()
+        welcomeViewController.modalPresentationStyle = .formSheet
+        welcomeViewController.configure(id: idTextField.text)
+        self.present(welcomeViewController, animated: true)
+    }
         
 }
 

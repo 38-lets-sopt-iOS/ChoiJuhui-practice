@@ -1,13 +1,13 @@
 //
-//  LoginViewController.swift
+//  LoginViewController_Closure.swift
 //  Sopt38-Seminar
 //
-//  Created by h2e on 4/10/26.
+//  Created by h2e on 4/11/26.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController_Closure: UIViewController {
     
     var id: String? = nil
     
@@ -55,10 +55,11 @@ class LoginViewController: UIViewController {
     }()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = .white
-        setLayout()
-    }
+            super.viewDidLoad()
+            self.view.backgroundColor = .white
+            setLayout()
+            
+        }
     
     private func setLayout(){
         [titleLabel, idTextField, passwordTextField, loginButton].forEach{self.view.addSubview($0)}
@@ -70,11 +71,17 @@ class LoginViewController: UIViewController {
     }
 
     private func pushToWelcomeVC() {
-        let welcomeViewController = WelcomeViewController()
+        let welcomeViewController = WelcomeViewController_Closure()
         welcomeViewController.id = idTextField.text
+        welcomeViewController.backToLoginCompletion = { [weak self] data in
+            guard let self else { return }
+            print("클로저로 받아온 데이터는 바로 \(data)임!!")
+            self.titleLabel.text = "\(data)님, 다시 로그인해야 해요!"
+            self.idTextField.text = ""
+            self.passwordTextField.text = ""
+        }
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
-    
         
 }
 

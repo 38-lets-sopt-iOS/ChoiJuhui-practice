@@ -1,15 +1,14 @@
 //
-//  LoginViewController.swift
+//  LoginViewController_DelegatePattern.swift
 //  Sopt38-Seminar
 //
-//  Created by h2e on 4/10/26.
+//  Created by h2e on 4/11/26.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController_DelegatePattern: UIViewController {
     
-    var id: String? = nil
     
     private let titleLabel : UILabel = {
         let label = UILabel(frame: CGRect(x : 73, y : 163, width: 236, height: 44))
@@ -31,17 +30,17 @@ class LoginViewController: UIViewController {
         textField.layer.cornerRadius = 3
         return textField
     }()
-
+    
     private let idTextField : UITextField = {
-            let textField = UITextField(frame: CGRect(x: 20, y: 277, width: 335, height: 52))
-            textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 23, height: 0))
-            textField.leftViewMode = .always
-            textField.placeholder = "아이디"
-            textField.font = .boldSystemFont(ofSize: 14)
+        let textField = UITextField(frame: CGRect(x: 20, y: 277, width: 335, height: 52))
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 23, height: 0))
+        textField.leftViewMode = .always
+        textField.placeholder = "아이디"
+        textField.font = .boldSystemFont(ofSize: 14)
         textField.backgroundColor = .grey200
-            textField.layer.cornerRadius = 3
-            return textField
-        }()
+        textField.layer.cornerRadius = 3
+        return textField
+    }()
     
     private lazy var loginButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 20, y: 422, width: 335, height: 52))
@@ -63,18 +62,28 @@ class LoginViewController: UIViewController {
     private func setLayout(){
         [titleLabel, idTextField, passwordTextField, loginButton].forEach{self.view.addSubview($0)}
     }
-        
+    
     @objc
     private func loginButtonDidTapped() {
         pushToWelcomeVC()
     }
-
+    
     private func pushToWelcomeVC() {
-        let welcomeViewController = WelcomeViewController()
-        welcomeViewController.id = idTextField.text
-        self.navigationController?.pushViewController(welcomeViewController, animated: true)
+            let welcomeViewController = WelcomeViewController_DelegatePattern()
+            welcomeViewController.id = idTextField.text
+            welcomeViewController.delegate = self
+            self.navigationController?.pushViewController(welcomeViewController, animated: true)
+        }
     }
     
+    
+    extension LoginViewController_DelegatePattern: RetryLoginDelegateProtocol {
+        func retryLogin(id: String) {
+            idTextField.text = ""
+            passwordTextField.text = ""
+            titleLabel.text = "\(id)님, 다시 로그인해야해요!"
+        }
         
-}
+    }
+    
 

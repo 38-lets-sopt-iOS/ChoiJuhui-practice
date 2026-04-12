@@ -1,19 +1,25 @@
 //
-//  WelcomViewController.swift
+//  WelcomeViewController_DelegatePattern.swift
 //  Sopt38-Seminar
 //
-//  Created by h2e on 4/10/26.
+//  Created by h2e on 4/11/26.
 //
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+protocol RetryLoginDelegateProtocol: AnyObject {
+    func retryLogin(id: String)
+}
+
+class WelcomeViewController_DelegatePattern: UIViewController {
     
-    var id: String? = nil
+    weak var delegate: RetryLoginDelegateProtocol? //weak가 왜 붙는지는 과제
+    
+    var id: String?
     
     private let welcomeImageView: UIImageView = {
         let iv = UIImageView(frame: CGRect(x: 120, y: 120, width: 150, height: 150))
-        iv.image = UIImage(named: "당근마켓.png")
+        iv.image = UIImage(named: "당근마켓")
         iv.contentMode = .scaleAspectFit
         return iv
     }()
@@ -44,10 +50,38 @@ class WelcomeViewController: UIViewController {
         button.titleLabel?.textColor = .grey300
         button.titleLabel?.font = UIFont(name: "Pretendard-Bold", size:18)
         button.layer.cornerRadius = 3
-        button.addTarget(self, action: #selector(backToLoginTapped), for: .touchUpInside)
+        button.addTarget(WelcomeViewController_DelegatePattern.self, action: #selector(backToLoginTapped), for: .touchUpInside)
         return button
     }()
     
+    
+    func configure(id: String?){
+        self.id = id
+        welcomeLabel.text = "\(id ?? "")님 \n반가워요!"
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setLayout()
+    }
+    
+    private func setLayout(){
+        [welcomeImageView, welcomeLabel, mainButton, backToLoginButton].forEach{self.view.addSubview($0)}
+    }
+    
+    @objc
+    private func backToLoginTapped(){
+        if let id = id {
+            delegate?.retryLogin(id: id)
+        }
+        
+        if(self.navigationController == nil){
+            self.dismiss(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
     
     private func bindID() {
             if let id = id {
@@ -56,27 +90,5 @@ class WelcomeViewController: UIViewController {
                 welcomeLabel.text = "??님\n반가워요!"
             }
         }
-    
-    override func viewDidLoad() {
-            super.viewDidLoad()
-            self.view.backgroundColor = .white
-            self.navigationItem.hidesBackButton = true
-            setLayout()
-            bindID()
-        }
-    
-    
-    private func setLayout(){
-        [welcomeImageView, welcomeLabel, mainButton, backToLoginButton].forEach{self.view.addSubview($0)}
-    }
-    
-    @objc
-    private func backToLoginTapped(){
-        if self.navigationController == nil {
-            self.dismiss(animated: true)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
     
 }
