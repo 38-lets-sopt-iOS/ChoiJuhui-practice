@@ -13,23 +13,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // UIWindowScene 앱의 윈도우와 뷰를 관리하는 핵심 객체
-        // scene이 UIWindowScene이 아니라면 실행을 중단
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-//        let loginViewController = LoginViewController_SnapKit()
-//        let AutoLayoutViewController = Autolayout_Practice()
-        let ScrollViewController = ScrollViewPractice2()
-        let navigationController = UINavigationController(rootViewController: ScrollViewController)
+        let rootViewController = ChatViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
         
-        // window의 루트를 설정.
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = navigationController // 네비게이션 컨트롤러를 루트뷰로 설정
-        
-        // window를 가장 중요한 key 윈도우로 설정하고 사용자에게 보이게 만듦. (Visible)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
-        // SceneDelegate의 window 속성에 방금 만든 window를 할당.
         self.window = window
     }
 
