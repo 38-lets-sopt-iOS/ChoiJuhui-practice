@@ -153,6 +153,8 @@
 /* Begin XCBuildConfiguration section */
 		94BB3D242F8CAD870070DFC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 94BB3D122F8CAD860070DFC3 /* Seminar-Practice */;
+			baseConfigurationReferenceRelativePath = week4/Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -215,6 +217,8 @@
 		};
 		94BB3D262F8CAD870070DFC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 94BB3D122F8CAD860070DFC3 /* Seminar-Practice */;
+			baseConfigurationReferenceRelativePath = week4/Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
