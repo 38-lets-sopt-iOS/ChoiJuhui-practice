@@ -8,7 +8,7 @@
 import Foundation
 
 final class LoginAPIService {
-    static var shared = LoginAPIService()
+    static let shared = LoginAPIService()
     private init() { }
     
     private func makeRequestBody(loginId: String, password: String) -> Data? {

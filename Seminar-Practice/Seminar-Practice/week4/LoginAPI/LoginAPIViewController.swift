@@ -11,11 +11,11 @@ import SnapKit
 import Then
 
 class LoginAPIViewController: UIViewController {
-    private let idTextField = UITextField()
+    private let loginIdTextField = UITextField()
     private let passwordTextField = UITextField()
-    private lazy var signinButton = UIButton()
+    private let signinButton = UIButton()
     
-    private var id: String = ""
+    private var loginId: String = ""
     private var password: String = ""
     
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ class LoginAPIViewController: UIViewController {
     
     private func setUI() {
         view.addSubviews(
-                idTextField, passwordTextField, signinButton
+                loginIdTextField, passwordTextField, signinButton
             )
         }
         
@@ -37,7 +37,7 @@ class LoginAPIViewController: UIViewController {
         
         let placeholder = ["아이디", "비밀번호"]
         
-        [idTextField, passwordTextField]
+        [loginIdTextField, passwordTextField]
             .enumerated()
             .forEach { index, textField in
                 textField.do {
@@ -57,7 +57,7 @@ class LoginAPIViewController: UIViewController {
     }
     
     private func setLayout() {
-        idTextField.snp.makeConstraints {
+        loginIdTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(300)
             $0.horizontalEdges.equalToSuperview().inset(20)
@@ -66,7 +66,7 @@ class LoginAPIViewController: UIViewController {
         
         passwordTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(idTextField.snp.bottom).offset(20)
+            $0.top.equalTo(loginIdTextField.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
@@ -79,7 +79,7 @@ class LoginAPIViewController: UIViewController {
     }
     
     private func setAddTarget() {
-        [idTextField,passwordTextField].forEach {
+        [loginIdTextField,passwordTextField].forEach {
             $0.addTarget(self, action: #selector(textFieldDidEditingChanged(_:)), for: .editingChanged)
         }
         signinButton.addTarget(self, action: #selector(loginButtonDidTap), for: .touchUpInside)
@@ -90,8 +90,8 @@ extension LoginAPIViewController {
     @objc
     private func textFieldDidEditingChanged(_ textField: UITextField) {
         switch textField {
-        case idTextField:
-            id = textField.text ?? ""
+        case loginIdTextField:
+            loginId = textField.text ?? ""
         case passwordTextField:
             password = textField.text ?? ""
         default:
@@ -104,16 +104,15 @@ extension LoginAPIViewController {
         Task {
             do {
                 let response = try await LoginAPIService.shared.postsignin(
-                    loginId: id,
+                    loginId: loginId,
                     password: password
                 )
                 
                 if response.success, let userId = response.data?.userId {
                     print("로그인 성공, userId: \(userId)")
-                    self.navigationController?.pushViewController(
-                        ModificationViewController(),
-                        animated: true
-                    )
+                    let modificaionViewController = ModificationViewController()
+                    modificaionViewController.userId = userId
+                    self.navigationController?.pushViewController(modificaionViewController, animated: true)
                 } else {
                     showAlert(title: "로그인 실패", message: response.message)
                     print("로그인 실패: \(response.message)")
