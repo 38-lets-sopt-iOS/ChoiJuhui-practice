@@ -1,5 +1,5 @@
 //
-//  LoginAPI.swift
+//  LoginAPIService.swift
 //  Seminar-Practice
 //
 //  Created by h2e on 5/2/26.
@@ -65,9 +65,9 @@ final class LoginAPIService {
         
         let request = try makeRequest(body: body)
         
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
         dump("Request \(request)")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.responseError

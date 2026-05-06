@@ -9,7 +9,7 @@ import Foundation
 
 final class GetUsersListService {
     static var shared = GetUsersListService()
-    public init() {}
+    private init() {}
     
     private func makeRequest(body: Data?) throws -> URLRequest {
         guard let baseURL = Bundle.main.infoDictionary?["BASE_URL"] as? String else {
