@@ -1,0 +1,10 @@
+
+# Xcode UI state
+*.xcuserstate
+xcuserdata/
+# Config & Secrets
+*.xcconfig
+.env
+.env.*
+!*.example.xcconfig
+!.env.example
