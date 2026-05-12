@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class LoginViewController_SnapKit: UIViewController {
@@ -98,7 +99,6 @@ class LoginViewController_SnapKit: UIViewController {
 
     private func pushToWelcomeVC() {
         let welcomeViewController = WelcomeViewController()
-        welcomeViewController.id = idTextField.text
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
         
