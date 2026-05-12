@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Seminar-Practice
 //
-//  Created by h2e on 4/13/26.
+//  Created by h2e on 4/12/26.
 //
 
 import UIKit
@@ -17,10 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-<<<<<<< HEAD
-=======
     // MARK: UISceneSession Lifecycle
->>>>>>> origin/main
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.

@@ -9,8 +9,11 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+<<<<<<< HEAD
     var id: String? = nil
     
+=======
+>>>>>>> origin/main
     private let titleLabel : UILabel = {
         let label = UILabel(frame: CGRect(x : 73, y : 163, width: 236, height: 44))
         label.text = "동네라서 가능한 모든 것\n당근에서 가까운 이웃과 함께해요."
@@ -71,6 +74,7 @@ class LoginViewController: UIViewController {
 
     private func pushToWelcomeVC() {
         let welcomeViewController = WelcomeViewController()
+<<<<<<< HEAD
         welcomeViewController.id = idTextField.text
         self.navigationController?.pushViewController(welcomeViewController, animated: true)
     }
@@ -78,3 +82,17 @@ class LoginViewController: UIViewController {
         
 }
 
+=======
+        welcomeViewController.configure(id: idTextField.text)
+        self.navigationController?.pushViewController(welcomeViewController, animated: true)
+    }
+    
+    private func presentToWelcomeVC() {
+        let welcomeViewController = WelcomeViewController()
+        welcomeViewController.modalPresentationStyle = .formSheet
+        welcomeViewController.configure(id: idTextField.text)
+        self.present(welcomeViewController, animated: true)
+    }
+        
+}
+>>>>>>> origin/main
